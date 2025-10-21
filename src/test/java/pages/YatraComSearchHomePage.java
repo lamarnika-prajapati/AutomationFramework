@@ -84,6 +84,7 @@ public class YatraComSearchHomePage extends BasePage {
              LOGGER.info("No iframe found");
          }
          click(departureFormLocator);
+
      }*/
     public void clickDepartureFrom() {
         LOGGER.info("waiting for iframe popup");
