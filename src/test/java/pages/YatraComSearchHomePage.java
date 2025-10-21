@@ -132,7 +132,7 @@ public class YatraComSearchHomePage extends BasePage {
             System.out.println("Count of Suggestion options: " + getElementCount(listOfCityFromSearchedCity));
             for (WebElement departureCitySuggestion : listOfDepartureCity) {
                 if ((departureCitySuggestion.getText().contains(city))) {
-                    LOGGER.info("clicking the city from the suggestion list '{}'", departureCitySuggestion.getText());
+                    LOGGER.info("clicking a specific city from the suggestion list '{}'", departureCitySuggestion.getText());
                     click(departureCitySuggestion);
                     break;
                 }
