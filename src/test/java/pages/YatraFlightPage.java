@@ -5,6 +5,7 @@ public class YatraFlightPage {
         System.out.println("This is new java class for github testing");
         System.out.println("Helle selenium");
         System.out.println("new branch is created");
+        System.out.println("2nd  branch is created");
     }
 
 }
