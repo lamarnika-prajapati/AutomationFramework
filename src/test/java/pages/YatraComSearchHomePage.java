@@ -96,7 +96,7 @@ public class YatraComSearchHomePage extends BasePage {
             click(iframeCloseButton);
             driver.switchTo().defaultContent();
         } else {
-            LOGGER.info("No popup element is present");
+            LOGGER.info("there is no popup element is present");
         }
         click(departureFormLocator);
     }
