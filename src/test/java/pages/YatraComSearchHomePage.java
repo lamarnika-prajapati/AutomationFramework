@@ -190,7 +190,6 @@ public class YatraComSearchHomePage extends BasePage {
     public void clickOnTravelAndClass() {
         click(travelerLocator);
     }
-
     public void selectAdults(String adultsNumber) {
         try{
             listOfAdults = driver.findElements(adultsLocator);
