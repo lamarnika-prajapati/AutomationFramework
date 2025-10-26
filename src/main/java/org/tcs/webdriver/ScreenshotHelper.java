@@ -28,7 +28,7 @@ public interface ScreenshotHelper {
      */
     default String takeScreenshot(String fileName) {
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String path = "screenshots/" + fileName + "_" + timestamp + ".png";
+        String path = "Screenshots/" + fileName + "_" + timestamp + ".png";
         try {
             File src = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(src, new File(path));

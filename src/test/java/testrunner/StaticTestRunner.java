@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = {"src/test/resources/features/YatraComApplication.feature"},
         glue = {"stepdefinitions"},
-      //  tags = "@TestCase1",
+        //tags = "@TagArriveFilter or @TagDurationFilter or @TagPriceFilter",
         plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
         monochrome = true
 

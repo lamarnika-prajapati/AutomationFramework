@@ -2,10 +2,7 @@ package pages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -29,6 +26,7 @@ public class YatraComSearchHomePage extends BasePage {
     By departureFormLocator = By.xpath("//p[text()='Departure From']");
     By fromCityLocator = By.xpath("//input[@id='input-with-icon-adornment']");
     By listOfCityFromSearchedCity = By.xpath("//input[@id='input-with-icon-adornment']/ancestor::div[contains(@class,'MuiStack')]/following-sibling::div//li//span");
+    By overlay=By.xpath("//p[text()='Going To']/parent::div/following-sibling::div[contains(@class,'MuiBackdrop-root')]");
     By goingToLocator = By.xpath("//p[text()='Going To']");
     By toCityLocator = By.xpath("//input[@id='input-with-icon-adornment']");
 
@@ -87,7 +85,7 @@ public class YatraComSearchHomePage extends BasePage {
 
      }*/
     public void clickDepartureFrom() {
-        LOGGER.info("waiting for iframe popup");
+        /*LOGGER.info("waiting for iframe popup");
         boolean isPopupElementPresent = isElementPresent(iframeLocator, 1);
         LOGGER.info("is iframe popup present {}", isPopupElementPresent);
         if (isPopupElementPresent) {
@@ -98,12 +96,14 @@ public class YatraComSearchHomePage extends BasePage {
             driver.switchTo().defaultContent();
         } else {
             LOGGER.info("there is no popup element is present");
-        }
+        }*/
         click(departureFormLocator);
     }
 
     public void clickGoingTo() {
+       // waitForInvisibility(overlay);
         click(goingToLocator);
+
     }
 
     public void enterDepartureFromCity(String departureFrom) {
@@ -132,9 +132,12 @@ public class YatraComSearchHomePage extends BasePage {
         if (!(listOfDepartureCity.isEmpty())) {
             System.out.println("Count of Suggestion options: " + getElementCount(listOfCityFromSearchedCity));
             for (WebElement departureCitySuggestion : listOfDepartureCity) {
+                System.out.println("traversing suggested cities");
                 if ((departureCitySuggestion.getText().contains(city))) {
+                    System.out.println("city matched: "+departureCitySuggestion.getText());
                     LOGGER.info("clicking a specific city from the suggestion list '{}'", departureCitySuggestion.getText());
-                    click(departureCitySuggestion);
+                    //click(departureCitySuggestion);
+                    departureCitySuggestion.click();
                     break;
                 }
             }
@@ -189,7 +192,11 @@ public class YatraComSearchHomePage extends BasePage {
     }
 
     public void selectAdults(String adultsNumber) {
-        listOfAdults = driver.findElements(adultsLocator);
+        try{
+            listOfAdults = driver.findElements(adultsLocator);
+        }catch (StaleElementReferenceException e) {
+            listOfAdults = driver.findElements(adultsLocator);
+        }
         for (WebElement adult : listOfAdults) {
             if (adult.getText().equals(adultsNumber)) {
                 click(adult);
@@ -248,11 +255,11 @@ public class YatraComSearchHomePage extends BasePage {
         }
     }
 
-    public boolean dashboardAfterSearchingFlight() {
+    /*public boolean dashboardAfterSearchingFlight() {
         LOGGER.info("Capturing dashboard page URL");
         String dashboardPageURL = driver.getCurrentUrl();
         return dashboardPageURL.contains("air-search-ui");
-    }
+    }*/
 
     public boolean validateChildDependencyOnAdult(String child) {
         List<WebElement> listOfChild = driver.findElements(childrenLocator);

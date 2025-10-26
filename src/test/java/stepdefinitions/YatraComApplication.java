@@ -15,6 +15,7 @@ import pages.FlightDetails;
 import pages.YatraComSearchHomePage;
 
 import javax.sound.midi.Soundbank;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ public class YatraComApplication {
     WebDriver driver = getDriver();
     YatraComSearchHomePage yatraComSearchHomePage = new YatraComSearchHomePage(driver);
     FlightDashboardPage flightDashboardPage = new FlightDashboardPage(driver);
+    List<FlightDetails> allFlightList=new ArrayList<>();
 
     @Given("Given traveller is on the YatraCom site page")
     public void givenTravelIsOnTheYatraComSitePage() {
@@ -67,27 +69,11 @@ public class YatraComApplication {
 
     @Then("the flights list should be visible if flights are available")
     public void theFlightsListShouldBeVisibleIfFlightsAreAvailable() {
-        boolean isDashboardPageURLMatched = yatraComSearchHomePage.dashboardAfterSearchingFlight();
-        Assert.assertTrue(isDashboardPageURLMatched, "flights are not displayed");
-        System.out.println("Flights details are successfully displayed");
-
+        boolean isDashboardPageURLMatched = flightDashboardPage.dashboardAfterSearchingFlight();
         WaitHelper.pause(5);
-        List<FlightDetails> allFlightDetails=flightDashboardPage.captureFlightSearchResults();
-        for(FlightDetails flightDetails:allFlightDetails)
-        {
-            System.out.println("Name of flight: "+flightDetails.getAirlineName());
-            System.out.println("Code of flight: "+flightDetails.getFlightCode());
-            System.out.println("flight's departure from: "+flightDetails.getFlightDepartureFrom());
-            System.out.println("flight arrive time: "+flightDetails.getFlightArriveTime());
-            System.out.println("flight arrive date: "+flightDetails.getFlightArriveDate());
-            System.out.println("flight duration: "+flightDetails.getFlightDuration());
-            System.out.println("flight stop or non-stop: "+flightDetails.getStopAndNon_Stop());
-            System.out.println("flight's going to: "+flightDetails.getFlightGoingTo());
-            System.out.println("flight reach time: "+flightDetails.getFlightReachTime());
-            System.out.println("flight reach date: "+flightDetails.getFlightReachDate());
-            System.out.println("flight price: "+flightDetails.getFlightPrice());
-        }
-
+        allFlightList=flightDashboardPage.captureFlightSearchResults();
+        Assert.assertTrue(isDashboardPageURLMatched, "flights details are not displayed");
+        System.out.println("Flights details are successfully displayed");
 
     }
 
@@ -113,4 +99,77 @@ public class YatraComApplication {
         System.out.println("Infant dependencies on Adult is working as an expected");
 
     }
+
+    @And("traveller click on Depart filter")
+    public void travellerClickOnDepartFilter() {
+        flightDashboardPage.clickOnDepartFilter();
+    }
+
+    @Then("the flights list should be visible based on depart filter {string}")
+    public void theFlightsListShouldBeVisibleBasedOnDepartFilter(String departureFrom) {
+        WaitHelper.pause(5);
+        boolean isFlightDetailsFiltered=flightDashboardPage.validateDepartFilterFunctionality(allFlightList,departureFrom);
+        Assert.assertTrue(isFlightDetailsFiltered,"The flights are not filtered on Depart filter option");
+        System.out.println("Flights are successfully filtered");
+
+
+    }
+
+    @And("traveller click on Arrive filter")
+    public void travellerClickOnArriveFilter() {
+        flightDashboardPage.clickOnArriveFilter();
+    }
+
+    @Then("the flights list should be visible based on Arrive filter {string}")
+    public void theFlightsListShouldBeVisibleBasedOnArriveFilter(String departureFrom) {
+        WaitHelper.pause(5);
+        boolean isFlightDetailsFiltered=flightDashboardPage.validateArriveFilterFunctionality(allFlightList, departureFrom);
+        Assert.assertTrue(isFlightDetailsFiltered,"The flights are not filtered on Arrive filter option");
+        System.out.println("Flights are successfully filtered based on Arrive filter");
+
+    }
+
+    @And("traveller click on Duration filter")
+    public void travellerClickOnDurationFilter() {
+       flightDashboardPage.clickOnDurationFilter();
+    }
+
+    @Then("the flights list should be visible based on Duration filter {string}")
+    public void theFlightsListShouldBeVisibleBasedOnDurationFilter(String departureFrom) {
+        WaitHelper.pause(5);
+        boolean isFlightDetailsFiltered=flightDashboardPage.validateDurationFilterFunctionality(allFlightList, departureFrom);
+        Assert.assertTrue(isFlightDetailsFiltered,"The flights are not filtered on Duration filter option");
+        System.out.println("Flights are successfully filtered based on Duration filter");
+
+    }
+
+
+    @And("traveller click on Price filter")
+    public void travellerClickOnPriceFilter() {
+        flightDashboardPage.clickOnPricePerAdultFilter();
+    }
+
+    @Then("the flights list should be visible based on Price {string}")
+    public void theFlightsListShouldBeVisibleBasedOnPrice(String departureFrom) {
+        WaitHelper.pause(5);
+        boolean isFlightDetailsFiltered=flightDashboardPage.validatePriceFilterFunctionality(allFlightList, departureFrom);
+        Assert.assertTrue(isFlightDetailsFiltered,"The flights are not filtered on Price filter option");
+        System.out.println("Flights are successfully filtered based on Price filter");
+
+    }
+
+    @And("traveller click on Depart filter to see flights in descending order")
+    public void travellerClickOnDepartFilterToSeeFlightsInDescendingOrder() {
+        flightDashboardPage.clickOnReverseDepartFilter();
+    }
+
+    @Then("the flights list should be visible in descending order based on depart filter {string}")
+    public void theFlightsListShouldBeVisibleInDescendingOrderBasedOnDepartFilter(String departureFrom) {
+        WaitHelper.pause(5);
+        boolean isFlightDetailsFiltered=flightDashboardPage.validateDepartReverseFilterFunctionality(allFlightList,departureFrom);
+        Assert.assertTrue(isFlightDetailsFiltered,"The flights are not filtered in descending order on Depart reverse filter option");
+        System.out.println("Flights are successfully filtered");
+    }
+
+
 }
