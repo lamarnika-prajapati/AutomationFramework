@@ -36,17 +36,17 @@ Feature: functionalities testing on Yatra.com site
 #      | One Way     | BOM  | JAI | 13 December 2025 | 6      | 3        | 2      | Premium Economy | Regular      | Yes      |
       | One Way     | New Delhi  | Mumbai | 13 December 2025 | 1      | 0        | 0      | Economy | Regular      | No      |
 
-#  @TagDepartDescendingFilter
-#  Scenario Outline: Validate depart filter functionality in ascending order on flight dashboard page
-#    Given Given traveller is on the YatraCom site page
-#    When traveller enter flight details "<Travel type>" "<From>" "<To>" "<Departure>" "<Adults>" "<Children>" "<Infant>" "<travel class>" "<Special Fare>" "<Non Stop>" and search the flight
-#    And traveller click to search button
-#    Then the flights list should be visible if flights are available
-#    And traveller click on Depart filter to see flights in descending order
-#    Then the flights list should be visible in descending order based on depart filter "<From>"
-#    Examples:
-#      | Travel type | From | To  | Departure        | Adults | Children | Infant | travel class    | Special Fare | Non Stop |
-#      | One Way     | New Delhi  | Mumbai | 13 December 2025 | 1      | 0        | 0      | Economy | Regular      | No      |
+  @TagDepartDescendingFilter
+  Scenario Outline: Validate depart filter functionality in ascending order on flight dashboard page
+    Given Given traveller is on the YatraCom site page
+    When traveller enter flight details "<Travel type>" "<From>" "<To>" "<Departure>" "<Adults>" "<Children>" "<Infant>" "<travel class>" "<Special Fare>" "<Non Stop>" and search the flight
+    And traveller click to search button
+    Then the flights list should be visible if flights are available
+    And traveller click on Depart filter to see flights in descending order
+    Then the flights list should be visible in descending order based on depart filter "<From>"
+    Examples:
+      | Travel type | From | To  | Departure        | Adults | Children | Infant | travel class    | Special Fare | Non Stop |
+      | One Way     | New Delhi  | Mumbai | 13 December 2025 | 1      | 0        | 0      | Economy | Regular      | No      |
 
 
   @TagArriveFilter
