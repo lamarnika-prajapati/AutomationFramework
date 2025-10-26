@@ -37,7 +37,7 @@ Feature: functionalities testing on Yatra.com site
       | One Way     | New Delhi  | Mumbai | 13 December 2025 | 1      | 0        | 0      | Economy | Regular      | No      |
 
   @TagDepartDescendingFilter
-  Scenario Outline: Validate depart filter functionality in ascending order on flight dashboard page
+  Scenario Outline: Validate depart filter functionality in Descending order on flight dashboard page
     Given Given traveller is on the YatraCom site page
     When traveller enter flight details "<Travel type>" "<From>" "<To>" "<Departure>" "<Adults>" "<Children>" "<Infant>" "<travel class>" "<Special Fare>" "<Non Stop>" and search the flight
     And traveller click to search button
@@ -57,6 +57,18 @@ Feature: functionalities testing on Yatra.com site
     Then the flights list should be visible if flights are available
     And traveller click on Arrive filter
     Then the flights list should be visible based on Arrive filter "<From>"
+    Examples:
+      | Travel type | From | To  | Departure        | Adults | Children | Infant | travel class    | Special Fare | Non Stop |
+      | One Way     | New Delhi  | JAI | 13 December 2025 | 6      | 3        | 2      | Premium Economy | Regular      | Yes      |
+
+  @TagArriveDescendingFilter
+  Scenario Outline: Validate filter functionality in descending order on flight dashboard page based on Arrive time
+    Given Given traveller is on the YatraCom site page
+    When traveller enter flight details "<Travel type>" "<From>" "<To>" "<Departure>" "<Adults>" "<Children>" "<Infant>" "<travel class>" "<Special Fare>" "<Non Stop>" and search the flight
+    And traveller click to search button
+    Then the flights list should be visible if flights are available
+    And traveller click on Arrive reverse filter
+    Then the flights list should be visible in descending order based on Arrive filter "<From>"
     Examples:
       | Travel type | From | To  | Departure        | Adults | Children | Infant | travel class    | Special Fare | Non Stop |
       | One Way     | New Delhi  | JAI | 13 December 2025 | 6      | 3        | 2      | Premium Economy | Regular      | Yes      |

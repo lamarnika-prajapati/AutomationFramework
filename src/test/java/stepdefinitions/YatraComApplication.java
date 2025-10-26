@@ -172,4 +172,15 @@ public class YatraComApplication {
     }
 
 
+    @And("traveller click on Arrive reverse filter")
+    public void travellerClickOnArriveReverseFilter() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("the flights list should be visible in descending order based on Arrive filter {string}")
+    public void theFlightsListShouldBeVisibleInDescendingOrderBasedOnArriveFilter(String arg0) {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
 }
