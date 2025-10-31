@@ -10,6 +10,7 @@ public class TestCodeClass {
         System.out.println(minutes);
         int totalMins=hours*60+minutes;
         System.out.println(totalMins);
+        System.out.println("the changes is done");
 
     }
 
